@@ -10,7 +10,7 @@ DEBUGGING = False
 # Define socket host and port
 
 SERVER_HOST = "0.0.0.0"
-SERVER_PORT = 8000
+SERVER_PORT = 80
 
 # Define a server structure
 
@@ -19,11 +19,11 @@ class HTML_Server:
         self.Response = ''
     def Response_GET(self, response):
         self.Response += response
-        print("\033[1A" + "===\n" + self.Response + "GET Request received!\n" + "=\_")
+        print("\033" + "===\n" + self.Response + "GET Request received!\n" + "=\_")
         return self
     def Directory_GET(self, directory):
         self.Response += open(directory).read() # add .close()
-        print(f"This directory was read: {directory}\n" + "=_/\n")
+        print("This directory was read: " + directory + "\n" + "=_/\n")
         return self
 
 # Instantiate the internet protocol to use as IPV4/TCP-IP
@@ -46,7 +46,8 @@ while True:
     print(client_Request)
     REQUESTED_DIRECTORY_HEADERS = client_Request.split('\n')
     REQUESTED_HTML_LABEL = REQUESTED_DIRECTORY_HEADERS[0].split()[1]
-    if REQUESTED_HTML_LABEL == '/' or REQUESTED_HTML_LABEL == "0x5C":
+    if REQUESTED_HTML_LABEL == '/' or REQUESTED_HTML_LABEL == "0x5C" \
+    or REQUESTED_HTML_LABEL == '':
         REQUESTED_HTML_LABEL = "Interface.html"
 
     try:
